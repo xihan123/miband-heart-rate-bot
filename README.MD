@@ -279,13 +279,15 @@ curl -X GET "http://localhost:8000/latest-heart-rate"
 
 ---
 
-# Screenshots / 截图
+# 截图
 
 配合PULSOID使用，可以将心率数据上传到自己的服务器，而不是上传到PULSOID服务器
 
 完成后可以在自己的服务器上查看心率数据，使用机器人根据心率数据做出相应回复
 
 养电子宠物,品赛博人生
+
+[完整效果预览视频](https://www.bilibili.com/video/BV1YuaQe6EbF/)
 
 以下截图是配合了多个软件的结果,并非单纯本项目就能完成
 
