@@ -1,0 +1,18 @@
+### 接收数据
+POST {{host}}/receive_data
+Accept: application/json
+Content-Type: application/json
+
+{
+  "data": {
+    "heart_rate": 120
+  },
+  "measured_at": 1723008188241
+}
+
+###
+
+### 获取最新心率
+GET {{host}}/latest-heart-rate
+Accept: application/json
+Content-Type: application/json

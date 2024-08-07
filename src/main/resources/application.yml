@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: miband-heart-rate-bot
+
+
+server:
+  port: 8000
+
+logging:
+  level:
+    root: info
+    web: info
+
+shiro:
+  ws:
+    client:
+      enable: true
+      url: "ws://192.168.43.100:5800"
