@@ -8,6 +8,8 @@ QQ机器人框架实现心率查询互动功能
 要修改机器人触发关键词修改`src/cn/xihan/mibandheartratebot/Group.kt`,注解中的cmd值即可
 文本同理
 
+配合[HeartRateHook](https://github.com/xihan123/HeartRateHook)使用效果更佳
+
 ```kotlin
 @MessageHandlerFilter(cmd = "查询心率")
 fun fun0(
@@ -144,9 +146,9 @@ fun fun0(
         }
         ]
     },
-    //QQ群号
+    //允许使用的QQ群号
     "groups": [
-        963079548
+        123456789
     ]
     }
     ```
@@ -255,33 +257,7 @@ curl -X GET "http://localhost:8000/latest-heart-rate"
 
 ---
 
-## 修改 PULSOID
-
-有现成的就不用自己写了
-接下来的步骤需要一点动手能力
-
-需要的工具:
-
-* [MT管理器2](https://mt2.cn/)
-
-* [PULSOID](https://play.google.com/store/apps/details?id=com.pulsoid.swung)
-
-## 修改步骤
-
-1. 使用MT管理器共存PULSOID(可选)
-2. 使用MT管理器在classes.dex常量中搜索"api/v1/data",将结果替换为你的服务器地址并应用修改
-3. 编译签名安装打开登录PULSOID，账号随意，反正数据不上传到PULSOID服务器
-
-懒得注册的我这提供一个临时邮箱注册的账号密码
-
-        xareko4054@luvnish.com
-        M996Km426z4A@@_
-
----
-
 # 截图
-
-配合PULSOID使用，可以将心率数据上传到自己的服务器，而不是上传到PULSOID服务器
 
 完成后可以在自己的服务器上查看心率数据，使用机器人根据心率数据做出相应回复
 
@@ -289,12 +265,7 @@ curl -X GET "http://localhost:8000/latest-heart-rate"
 
 [完整效果预览视频](https://www.bilibili.com/video/BV1YuaQe6EbF/)
 
-以下截图是配合了多个软件的结果,并非单纯本项目就能完成
-
-* 使用小米手环7
-* 手机上要运行小米运动健康-运动模式
-* 使用修改版PULSOID
-* 使用本项目
+以下截图是配合[HeartRateHook](https://github.com/xihan123/HeartRateHook)结果,并非单纯本项目就能完成
 
 ![0](screenshots/0.png)
 ![1](screenshots/1.png)
