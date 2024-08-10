@@ -1,3 +1,5 @@
+![miband-heart-rate-bot](https://socialify.git.ci/xihan123/miband-heart-rate-bot/image?language=1&name=1&owner=1&theme=Auto)
+
 # Heart Rate Bot
 
 ## 描述
@@ -26,134 +28,7 @@ fun fun0(
 
 ## 配置文件
 
-1. config.json
-
-    ```json
-    {
-    "heart_rate": {
-        // 是否启用心率功能
-        "enable": true,
-        // 心率阈值
-        "threshold": 10,
-        // 心率状态
-        "heart_rate_states": [
-        {
-            // 最小心率
-            "minHeartRate": 30,
-            // 最大心率
-            "maxHeartRate": 39,
-            // 状态描述
-            "states": [
-            "阿宅模式启动",
-            "穿越梦中",
-            "心跳慢如冬眠的猫"
-            ]
-        },
-        {
-            "minHeartRate": 40,
-            "maxHeartRate": 52,
-            "states": [
-            "悠闲打盹",
-            "梦开始的地方",
-            "心跳轻悄悄，仿佛时间静止"
-            ]
-        },
-        {
-            "minHeartRate": 53,
-            "maxHeartRate": 70,
-            "states": [
-            "平静日常",
-            "心跳如平常的漫画翻页",
-            "平静心跳，享受午后的阳光"
-            ]
-        },
-        {
-            "minHeartRate": 71,
-            "maxHeartRate": 85,
-            "states": [
-            "日常冒险",
-            "心跳跳动着日常的韵律",
-            "平稳心跳，像是一本翻开的轻小说"
-            ]
-        },
-        {
-            "minHeartRate": 86,
-            "maxHeartRate": 100,
-            "states": [
-            "小鹿乱撞",
-            "心跳如小跑",
-            "心跳快了一拍，可能是心动的前奏"
-            ]
-        },
-        {
-            "minHeartRate": 101,
-            "maxHeartRate": 120,
-            "states": [
-            "萌动心跳",
-            "心跳加速，如同见到了萌物",
-            "心跳快了点，似乎有些许兴奋呢"
-            ]
-        },
-        {
-            "minHeartRate": 121,
-            "maxHeartRate": 140,
-            "states": [
-            "冒险进行时",
-            "心跳如寻求冒险的热血",
-            "心跳加速，仿佛在经历一场大冒险"
-            ]
-        },
-        {
-            "minHeartRate": 141,
-            "maxHeartRate": 200,
-            "states": [
-            "超次元冲刺",
-            "心跳如同穿梭次元的高速列车",
-            "心跳的极限挑战",
-            "心跳如雷霆万钧",
-            "心跳急速飙升，如狂风暴雨前的宁静",
-            "心跳快得几乎要跳出胸膛，可能是遇见了未知的挑战"
-            ]
-        }
-        ],
-        // 心率趋势
-        "heart_rate_trend": [
-        {
-            // 趋势
-            "trend": "上升",
-            // 描述
-            "descriptions": [
-            "心率上升 - 可能在运动",
-            "心跳加快 - 可能在紧张",
-            "心率增加 - 可能在兴奋"
-            ]
-        },
-        {
-            "trend": "下降",
-            "descriptions": [
-            "心率下降 - 可能在放松",
-            "心跳减缓 - 可能在休息",
-            "心率减少 - 可能在恢复"
-            ]
-        },
-        {
-            "trend": "稳定",
-            "descriptions": [
-            "心率稳定 - 状态平稳",
-            "心跳平稳 - 没有明显变化",
-            "心率保持不变 - 状态正常"
-            ]
-        }
-        ]
-    },
-    //允许使用的QQ群号
-    "groups": [
-        123456789
-    ]
-    }
-    ```
-
-2. src/main/resources/application.yml
+1. application.yml
 
    修改参考[Shiro](https://misakatat.github.io/shiro-docs/#%E8%BF%9E%E6%8E%A5%E9%85%8D%E7%BD%AE)的配置文件
 
@@ -164,6 +39,29 @@ fun fun0(
       client:
       enable: true
       url: "ws://websocket_server:port"
+    ```
+
+   心率区间描述配置
+
+    ```yaml
+    - minHeartRate: 30 # 最小心率
+      maxHeartRate: 39 # 最大心率
+      descriptions: # 描述
+        - "阿宅模式启动"
+        - "穿越梦中"
+        - "心跳慢如冬眠的猫"
+
+    ```
+
+   心率趋势描述配置
+
+    ```yaml
+    - trend: "上升" # 心率趋势 不可改
+      descriptions: # 描述
+        - "心率上升 - 可能在运动"
+        - "心跳加快 - 可能在紧张"
+        - "心率增加 - 可能在兴奋"
+
     ```
 
 ## 功能
@@ -201,7 +99,7 @@ GET /html/index.html
 
 ## 如何运行
 
-1. 配置OneBot机器人,将src/main/resources/application.yml中的onebot.host配置为OneBot的地址
+1. 修改配置文件
 
 2. 编译Jar:
 
@@ -209,33 +107,13 @@ GET /html/index.html
     gradle bootJar
     ```
 
-3. 运行服务器:
+3. 运行服务器(.jar要和application.yml同目录):
 
     ```shell
     java -jar build/libs/miband-heart-rate-bot-0.1.0.jar
     ```
 
 4. 访问应用程序: http://localhost:8000
-
-## Docker
-
-1. 配置OneBot机器人,将src/main/resources/application.yml中的onebot.host配置为OneBot的地址
-
-2. 构建Docker镜像:
-
-    ```shell
-    docker build -t heart-rate-bot .
-    ```
-
-3. 运行Docker容器:
-
-    ```shell
-    docker run -p 8000:8000 heart-rate-bot
-    ```
-
-4. 访问应用程序: http://localhost:8000
-
----
 
 ## 示例请求
 
