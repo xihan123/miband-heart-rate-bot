@@ -12,14 +12,30 @@ import java.util.regex.Matcher
 @Shiro
 @Component
 class Group(
-    private val heartRateService: HeartRateService
+    private val heartRateService: HeartRateService,
+    private val heartRateProperties: HeartRateProperties
 ) {
+
+    // 心率功能是否启用
+    private val heartRateEnable = heartRateProperties.enable
+
+    // 允许的群组列表
+    private val groups = heartRateProperties.groups
+
+    // 心率阈值
+    private val threshold = heartRateProperties.threshold
+
+    // 心率状态
+    private val heartRateStates = heartRateProperties.heartRateStates
+
+    // 心率趋势
+    private val heartRateTrend = heartRateProperties.heartRateTrend
 
     // 处理群组消息，当消息内容为“查询心率”时触发
     @GroupMessageHandler
     // 消息过滤器，当消息内容为“查询心率”时触发
     @MessageHandlerFilter(
-        cmd = "查询心率",
+        cmd = "查询心率|心率是多少|希涵心率|群主心率",
     )
     fun fun0(
         // 机器人对象
@@ -48,8 +64,14 @@ class Group(
         val msgText = """
             查询时间: ${queryText.first.formatTimestamp()}
             心率: ${queryText.second}
-            状态: ${determineHeartRateState(queryText.second)}
-            心率趋势: ${determineHeartRateTrend(queryText.second)}
+            状态: ${determineHeartRateState(heartRateStates, queryText.second)}
+            心率趋势: ${
+            determineHeartRateTrend(
+                heartRateTrends = heartRateTrend,
+                currentHeartRate = queryText.second,
+                threshold = threshold
+            )
+        }
             """.trimIndent()
         // 构造消息对象
         val msg = MsgUtils.builder().reply(messageId).text(msgText).build()

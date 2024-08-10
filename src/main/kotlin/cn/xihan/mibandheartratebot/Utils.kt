@@ -1,42 +1,18 @@
 package cn.xihan.mibandheartratebot
 
 import com.alibaba.fastjson2.annotation.JSONField
-import com.alibaba.fastjson2.parseObject
-import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
-
-/**
- * 配置文件
- */
-private val configFile by lazy {
-    File("config.json").apply {
-        if (!exists()) createNewFile()
-    }
-}
-
-private val configModel by lazy { configFile.readText().parseObject<ConfigModel>() }
-
-// 定义一个延迟初始化的变量，用于存储configModel.heartRate.enable的值
-val heartRateEnable by lazy { configModel.heartRate.enable }
-// 定义一个延迟初始化的变量，用于存储configModel.heartRate.threshold的值
-val heartRateThreshold by lazy { configModel.heartRate.threshold }
-// 定义一个延迟初始化的变量，用于存储configModel.heartRate.heartRateStates的值
-val heartRateStates by lazy { configModel.heartRate.heartRateStates }
-// 定义一个延迟初始化的变量，用于存储configModel.heartRate.heartRateTrend的值
-val heartRateTrends by lazy { configModel.heartRate.heartRateTrend }
-// 定义一个延迟初始化的变量，用于存储configModel.groups的值
-val groups by lazy { configModel.groups }
 
 
 /**
  * 根据心率确定心率状态
  */
-fun determineHeartRateState(heartRate: Int): String {
+fun determineHeartRateState(heartRateStates: List<HeartRateState>, heartRate: Int): String {
     // 在心率状态列表中查找与当前心率匹配的状态
     val state = heartRateStates.firstOrNull { heartRate in it.minHeartRate..it.maxHeartRate }
     // 返回匹配状态中的随机状态，如果没有匹配状态则返回"未知状态"
-    return state?.states?.random() ?: "未知状态"
+    return state?.descriptions?.random() ?: "未知状态"
 }
 
 /**
@@ -50,9 +26,14 @@ private var innerPreviousHeartRate = 70
  * @param currentHeartRate 当前心率
  * @param previousHeartRate 前一次心率
  * @param threshold 阈值
+ * @param previousHeartRate 前一次心率
+ * @return 心率趋势描述
  */
 fun determineHeartRateTrend(
-    currentHeartRate: Int, previousHeartRate: Int = innerPreviousHeartRate, threshold: Int = heartRateThreshold
+    heartRateTrends: List<HeartRateTrend>,
+    currentHeartRate: Int,
+    threshold: Int = 10,
+    previousHeartRate: Int = innerPreviousHeartRate
 ): String {
 //    println("currentHeartRate: $currentHeartRate, previousHeartRate: $previousHeartRate, threshold: $threshold")
     // 根据当前心率、前一次心率、阈值判断心率趋势
