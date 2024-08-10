@@ -2,7 +2,7 @@ FROM eclipse-temurin:17-jre
 
 # 移动静态文件
 RUN mkdir -p /app/static
-COPY config.json /app/config.json
+COPY application.yml /app/application.yml
 COPY build/libs/miband-heart-rate-bot-0.1.0.jar /app/bot.jar
 
 # 设置时区
