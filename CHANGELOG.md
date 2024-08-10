@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.1](https://github.com/xihan123/miband-heart-rate-bot/compare/v2.0.0...v2.0.1) (2024-08-10)
+
+
+### CI
+
+* 增加Gradle Wrapper大小检查和清理 ([598232c](https://github.com/xihan123/miband-heart-rate-bot/commit/598232c2041809b8e58e57c3082c03ac6f826edf))
+
 ## [2.0.0](https://github.com/xihan123/miband-heart-rate-bot/compare/v1.0.0...v2.0.0) (2024-08-10)
 
 
