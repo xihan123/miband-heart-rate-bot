@@ -39,7 +39,10 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
 
       - name: Build with Gradle Wrapper
-        run: ./gradlew bootJar
+        run: |
+          [ $(du -s ~/.gradle/wrapper | awk '{ print $1 }') -gt 250000 ] && rm -rf ~/.gradle/wrapper/* || true
+          chmod +x gradlew
+          ./gradlew bootJar
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
